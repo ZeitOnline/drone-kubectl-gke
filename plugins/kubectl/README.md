@@ -18,3 +18,4 @@ steps:
   commands:
     - kubectl -n spiele get deployments
 ```
+
