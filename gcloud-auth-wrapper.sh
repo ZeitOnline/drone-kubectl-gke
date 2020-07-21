@@ -12,7 +12,7 @@ if [ ! -e ~/.kube/config ]; then
 
   echo ${PLUGIN_GCP_CREDENTIALS} > credentials.json
   gcloud auth activate-service-account --key-file=credentials.json
-  gcloud container clusters get-credentials ${PLUGIN_CLUSTER}
+  gcloud container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
     
   echo "... credentials written to ~/.kube/config"
 fi
