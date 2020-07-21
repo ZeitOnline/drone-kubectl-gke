@@ -19,8 +19,6 @@ steps:
       VERSION: "${DRONE_TAG}"
     json_key:
       from_secret: GCP_SERVICE_ACCOUNT
-    context: plugins/kubectl
-    dockerfile: plugins/kubectl/Dockerfile
   purge: false
   volumes:
     - name: docker

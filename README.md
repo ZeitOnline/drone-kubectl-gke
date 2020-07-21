@@ -1,7 +1,8 @@
-# Drone.io plugin for kubectl and kustomize
+# Drone.io plugin for kubectl and kustomize on GKE
 
-This is a basic drone plugin with kubectl and kustomize for k8s deployment steps.
-kubectl is wrapped in our gcloud auth wrapper which generates k8s credentials.
+This is a basic drone plugin with kubectl and kustomize for
+deployment steps to GKE. kubectl is wrapped in a small script
+which generates k8s credentials on the first invocation.
 
 Use like this:
 
@@ -18,4 +19,3 @@ steps:
   commands:
     - kubectl -n spiele get deployments
 ```
-
