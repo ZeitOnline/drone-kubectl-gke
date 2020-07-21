@@ -9,7 +9,7 @@ Use like this:
 ```yaml
 steps:
 - name: kubectl
-  image: registry.zeit.de/zon-drone-kubectl:1.2.0
+  image: eu.gcr.io/zeitonline-210413/zon-drone-kubectl:2.7.2
   settings:
     gcp_credentials:
       from_secret: GCP_SERVICE_ACCOUNT
