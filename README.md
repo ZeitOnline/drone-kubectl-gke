@@ -16,6 +16,7 @@ steps:
     project: zeitonline-main
     zone: europe-west3-a
     cluster: staging
+    namespace: spiele
   commands:
-    - kubectl -n spiele get deployments
+    - kubectl get deployments
 ```
