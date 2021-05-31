@@ -1,7 +1,7 @@
 FROM google/cloud-sdk:alpine
 
-ENV KUBECTL_VERSION 1.17.9
-ENV KUSTOMIZE_VERSION 3.8.1
+ENV KUBECTL_VERSION 1.18.18
+ENV KUSTOMIZE_VERSION 4.1.3
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
   && chmod +x /usr/bin/kubectl
