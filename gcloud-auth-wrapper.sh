@@ -10,7 +10,7 @@ if [ ! -e ~/.kube/config ]; then
 
   echo "Generating K8s credentials..."
 
-  echo ${PLUGIN_GCP_CREDENTIALS} > credentials.json
+  echo -E ${PLUGIN_GCP_CREDENTIALS} > credentials.json
   gcloud auth activate-service-account --key-file=credentials.json
   gcloud container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
 
