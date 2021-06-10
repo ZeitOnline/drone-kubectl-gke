@@ -10,7 +10,9 @@ if [ ! -e ~/.kube/config ]; then
 
   echo "Generating K8s credentials..."
 
+  # Use standalone 'echo' to be able to suppress backslash-escape interpretation
   /bin/echo -E ${PLUGIN_GCP_CREDENTIALS} > credentials.json
+  
   gcloud auth activate-service-account --key-file=credentials.json
   gcloud container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
 
@@ -18,7 +20,7 @@ if [ ! -e ~/.kube/config ]; then
 
   if [ -n "$PLUGIN_NAMESPACE" ]; then
     kubectl config set-context --current --namespace=${PLUGIN_NAMESPACE}
-    echo "... namespace set to '${PLUGIN_NAMESPACE}."
+    echo "... namespace set to '${PLUGIN_NAMESPACE}'."
   fi
 fi
 
