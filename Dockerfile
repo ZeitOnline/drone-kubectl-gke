@@ -5,6 +5,7 @@ ENV KUSTOMIZE_VERSION 4.1.3
 ENV JSONNET_VERSION 0.17.0
 ENV JSONNET_BUNDLER_VERSION 0.4.0
 ENV KUBECFG_VERSION 0.20.0
+ENV PLUTO_VERSION 4.2.0
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
   && chmod +x /usr/bin/kubectl
@@ -20,6 +21,11 @@ RUN mkdir jsonnetdownload && cd jsonnetdownload && curl -fSL -o jsonnet.tar.gz h
     mv jsonnetfmt /usr/bin && \
     cd .. && \
     rm -rf jsonnetdownload
+
+ADD https://github.com/FairwindsOps/pluto/releases/download/v${PLUTO_VERSION}/pluto_${PLUTO_VERSION}_linux_amd64.tar.gz /tmp/pluto.tar.gz
+RUN tar -C /tmp -xzf /tmp/pluto.tar.gz \
+  && mv /tmp/pluto /usr/bin \
+  && rm -f /tmp/pluto*
 
 RUN curl -L https://github.com/bitnami/kubecfg/releases/download/v${KUBECFG_VERSION}/kubecfg-linux-amd64 -o /usr/bin/kubecfg \
   && chmod +x /usr/bin/kubecfg
