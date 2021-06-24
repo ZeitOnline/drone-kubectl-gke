@@ -6,6 +6,10 @@ ENV JSONNET_VERSION 0.17.0
 ENV JSONNET_BUNDLER_VERSION 0.4.0
 ENV KUBECFG_VERSION 0.20.0
 ENV PLUTO_VERSION 4.2.0
+ENV JQ_VERSION 1.6
+
+RUN curl -L https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -o /usr/bin/jq \
+  && chmod +x /usr/bin/jq
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
   && chmod +x /usr/bin/kubectl
