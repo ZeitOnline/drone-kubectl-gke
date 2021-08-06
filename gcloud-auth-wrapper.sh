@@ -1,7 +1,9 @@
 #!/bin/sh
 set -e
 
-if [ ! -e ~/.kube/config ]; then
+b="$(basename -- $0)"
+
+if [ "$b" = "kubectl" ] && [ ! -e ~/.kube/config ] || [ ! -e ~/.config/gcloud/application_default_credentials.json ]; then
 
   [ -z "$PLUGIN_ZONE" ] && echo "Need to set 'zone'" && exit 1;
   [ -z "$PLUGIN_PROJECT" ] && echo "Need to set 'project'" && exit 1;
@@ -13,15 +15,18 @@ if [ ! -e ~/.kube/config ]; then
   # Use standalone 'echo' to be able to suppress backslash-escape interpretation
   /bin/echo -E ${PLUGIN_GCP_CREDENTIALS} > credentials.json
   
-  gcloud auth activate-service-account --key-file=credentials.json
-  gcloud container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
+  /usr/bin/gcloud.original auth activate-service-account --key-file=credentials.json
 
-  echo "... credentials written to ~/.kube/config"
+  if [ "$b" = "kubectl" ]; then
+    /usr/bin/gcloud.original container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
 
-  if [ -n "$PLUGIN_NAMESPACE" ]; then
-    kubectl config set-context --current --namespace=${PLUGIN_NAMESPACE}
-    echo "... namespace set to '${PLUGIN_NAMESPACE}'."
+    echo "... credentials written to ~/.kube/config"
+
+    if [ -n "$PLUGIN_NAMESPACE" ]; then
+      kubectl config set-context --current --namespace=${PLUGIN_NAMESPACE}
+      echo "... namespace set to '${PLUGIN_NAMESPACE}'."
+    fi
   fi
 fi
 
-exec /usr/bin/kubectl.original "$@"
+exec $0.original "$@"
