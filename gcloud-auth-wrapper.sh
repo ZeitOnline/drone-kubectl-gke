@@ -4,10 +4,9 @@ set -e
 b="$(basename -- $0)"
 
 export KUBECONFIG="/tmp/.kube/config"
-export GOOGLE_APPLICATION_CREDENTIALS="/tmp/application_default_credentials.json"
-export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="${GOOGLE_APPLICATION_CREDENTIALS}"
+export CLOUDSDK_CONFIG="/tmp/gcloud/"
 
-if [ "$b" = "kubectl" ] && [ ! -e "${KUBECONFIG}" ] || [ ! -e "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
+if [ "$b" = "kubectl" ] && [ ! -e "${KUBECONFIG}" ] || [ ! -e "${CLOUDSDK_CONFIG}/active_config" ]; then
 
   [ -z "$PLUGIN_ZONE" ] && echo "Need to set 'zone'" && exit 1;
   [ -z "$PLUGIN_PROJECT" ] && echo "Need to set 'project'" && exit 1;
