@@ -5,6 +5,7 @@ b="$(basename -- $0)"
 
 export KUBECONFIG="/tmp/.kube/config"
 export GOOGLE_APPLICATION_CREDENTIALS="/tmp/application_default_credentials.json"
+export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="${GOOGLE_APPLICATION_CREDENTIALS}"
 
 if [ "$b" = "kubectl" ] && [ ! -e "${KUBECONFIG}" ] || [ ! -e "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
 
