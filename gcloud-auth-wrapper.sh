@@ -26,7 +26,7 @@ if [ "$b" = "kubectl" ] && [ ! -e "${KUBECONFIG}" ] || [ ! -e "${CLOUDSDK_CONFIG
     echo "... credentials written to ${KUBECONFIG}"
 
     if [ -n "$PLUGIN_NAMESPACE" ]; then
-      kubectl config set-context --current --namespace=${PLUGIN_NAMESPACE}
+      kubectl.original config set-context --current --namespace=${PLUGIN_NAMESPACE}
       echo "... namespace set to '${PLUGIN_NAMESPACE}'."
     fi
   fi
