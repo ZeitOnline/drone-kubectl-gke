@@ -4,8 +4,9 @@ set -e
 b="$(basename -- $0)"
 
 export KUBECONFIG="/tmp/.kube/config"
+export GOOGLE_APPLICATION_CREDENTIALS="/tmp/application_default_credentials.json"
 
-if [ "$b" = "kubectl" ] && [ ! -e ~/.kube/config ] || [ ! -e ~/.config/gcloud/application_default_credentials.json ]; then
+if [ "$b" = "kubectl" ] && [ ! -e "${KUBECONFIG}" ] || [ ! -e "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
 
   [ -z "$PLUGIN_ZONE" ] && echo "Need to set 'zone'" && exit 1;
   [ -z "$PLUGIN_PROJECT" ] && echo "Need to set 'project'" && exit 1;
