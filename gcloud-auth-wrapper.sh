@@ -8,7 +8,7 @@ command="$(basename -- $0)"
 export KUBECONFIG="/tmp/.kube/config"
 export CLOUDSDK_CONFIG="/tmp/gcloud/"
 
-if [ ! -e CLOUDSDK_CONFIG ]; then
+if [ ! -e $CLOUDSDK_CONFIG ]; then
 
   [ -z "$PLUGIN_ZONE" ] && echo "Need to set 'zone'" && exit 1;
   [ -z "$PLUGIN_PROJECT" ] && echo "Need to set 'project'" && exit 1;
