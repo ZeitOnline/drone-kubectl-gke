@@ -9,7 +9,7 @@ trigger:
 steps:
 
 - name: build-image  
-  image: zeitonline/drone-kubectl-gke
+  image: plugins/docker
   settings:
     repo: zeitonline/drone-kubectl-gke
     username: zeitonline
