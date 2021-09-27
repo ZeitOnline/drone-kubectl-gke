@@ -7,18 +7,19 @@ trigger:
     - tag
 
 steps:
-- name: build-image
-  image: plugins/gcr
+
+- name: build-image  
+  image: zeitonline/drone-kubectl-gke
   settings:
-    registry: eu.gcr.io
-    repo: zeitonline-210413/zon-drone-kubectl
+    repo: zeitonline/drone-kubectl-gke
+    username: zeitonline
+    password:
+      from_secret: dockerhub-credentials
     tags:
       - latest
       - ${DRONE_TAG}
     environment:
       VERSION: "${DRONE_TAG}"
-    json_key:
-      from_secret: GCP_SERVICE_ACCOUNT
   purge: false
   volumes:
     - name: docker
@@ -29,3 +30,10 @@ volumes:
   host:
     path: /var/run/docker.sock
 
+---
+kind: secret
+name: dockerhub-credentials
+
+get:
+  path: zon/v1/dockerhub/drone
+  name: token
