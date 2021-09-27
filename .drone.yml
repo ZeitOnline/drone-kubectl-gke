@@ -1,34 +1,29 @@
 kind: pipeline
 name: default
+type: docker
 
 trigger:
   event:
     include:
-    - tag
-
+      - tag
+      
 steps:
-
-- name: build-image  
-  image: plugins/docker
-  settings:
-    repo: zeitonline/drone-kubectl-gke
-    username: zeitonline
-    password:
-      from_secret: dockerhub-credentials
-    tags:
-      - latest
-      - ${DRONE_TAG}
-    environment:
-      VERSION: "${DRONE_TAG}"
-  purge: false
-  volumes:
-    - name: docker
-      path: /var/run/docker.sock
-
+  - name: build-image
+    image: zeitonline/drone-kubectl-gke
+    settings:
+      repo: zeitonline/drone-kubectl-gke
+      username: zeitonline
+      password:
+        from_secret: dockerhub-credentials
+      auto_tag: true
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+        
 volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
+  - name: docker
+    host:
+      path: /var/run/docker.sock
 
 ---
 kind: secret
