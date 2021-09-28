@@ -2,7 +2,7 @@
 set -e
 
 command="$(basename -- $0)"
-creds_dir=creds_dir=$(mktemp --tmpdir=/dev/shm)
+creds_dir=$(mktemp --tmpdir=/dev/shm)
 
 # Write credentials to a location outside the Drone workspace to
 # avoid collisions when steps run in parallel
