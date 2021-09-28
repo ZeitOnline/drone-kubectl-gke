@@ -2,11 +2,14 @@
 set -e
 
 command="$(basename -- $0)"
+creds_dir="/credentials"
 
 # Write credentials to a location outside the Drone workspace to
 # avoid collisions when steps run in parallel
-export KUBECONFIG="/tmp/.kube/config"
-export CLOUDSDK_CONFIG="/tmp/gcloud/"
+export KUBECONFIG="${creds_dir}/.kube/config"
+export CLOUDSDK_CONFIG="${creds_dir}/gcloud/"
+
+mkdir $creds_dir && mount -t tmpfs -o size=5M tmpfs $creds_dir
 
 if [ ! -e $CLOUDSDK_CONFIG ]; then
 
@@ -18,9 +21,9 @@ if [ ! -e $CLOUDSDK_CONFIG ]; then
   echo "Activating GCP service account..."
 
   # Use standalone 'echo' to be able to suppress backslash-escape interpretation
-  /bin/echo -E ${PLUGIN_GCP_CREDENTIALS} > /tmp/credentials.json
+  /bin/echo -E ${PLUGIN_GCP_CREDENTIALS} > ${creds_dir}/credentials.json
   
-  /usr/bin/gcloud.original auth activate-service-account --key-file=/tmp/credentials.json
+  /usr/bin/gcloud.original auth activate-service-account --key-file=${creds_dir}/credentials.json
 fi
 
 if [ $command = "kubectl" ] && [ ! -e $KUBECONFIG ]; then
