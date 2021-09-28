@@ -2,14 +2,12 @@
 set -e
 
 command="$(basename -- $0)"
-creds_dir="/credentials"
+creds_dir=creds_dir=$(mktemp --tmpdir=/dev/shm)
 
 # Write credentials to a location outside the Drone workspace to
 # avoid collisions when steps run in parallel
 export KUBECONFIG="${creds_dir}/.kube/config"
 export CLOUDSDK_CONFIG="${creds_dir}/gcloud/"
-
-mkdir $creds_dir && mount -t tmpfs -o size=5M tmpfs $creds_dir
 
 if [ ! -e $CLOUDSDK_CONFIG ]; then
 
