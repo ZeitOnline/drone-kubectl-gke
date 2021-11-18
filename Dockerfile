@@ -6,6 +6,7 @@ ENV JSONNET_VERSION 0.17.0
 ENV JSONNET_BUNDLER_VERSION 0.4.0
 ENV KUBECFG_VERSION 0.20.0
 ENV PLUTO_VERSION 4.2.0
+ENV LINKERD_VERSION 2.11.1
 ENV JQ_VERSION 1.6
 
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -o /usr/bin/jq \
@@ -33,6 +34,9 @@ RUN tar -C /tmp -xzf /tmp/pluto.tar.gz \
 
 RUN curl -L https://github.com/bitnami/kubecfg/releases/download/v${KUBECFG_VERSION}/kubecfg-linux-amd64 -o /usr/bin/kubecfg \
   && chmod +x /usr/bin/kubecfg
+
+RUN curl -L https://github.com/linkerd/linkerd2/releases/download/stable-${LINKERD_VERSION}/linkerd2-cli-stable-${LINKERD_VERSION}-linux-amd64 -o /usr/bin/linkerd
+  && chmod +x /usr/bin/linkerd
 
 RUN curl -fSL -o "/usr/bin/jb" "https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v${JSONNET_BUNDLER_VERSION}/jb-linux-amd64" && chmod a+x "/usr/bin/jb"
 
