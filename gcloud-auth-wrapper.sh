@@ -24,7 +24,7 @@ if [ ! -e $CLOUDSDK_CONFIG ]; then
   /usr/bin/gcloud.original auth activate-service-account --key-file=${creds_dir}/credentials.json
 fi
 
-if [ $command = "kubectl" || $command = "linkerd" ] && [ ! -e $KUBECONFIG ]; then
+if [ "$command" = "kubectl" -o "$command" = "linkerd" ] && [ ! -e $KUBECONFIG ]; then
   echo "Writing k8s credentials to ${KUBECONFIG}..."
 
   /usr/bin/gcloud.original container clusters get-credentials ${PLUGIN_CLUSTER} --project=${PLUGIN_PROJECT} --zone=${PLUGIN_ZONE}
