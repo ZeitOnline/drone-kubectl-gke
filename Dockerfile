@@ -49,3 +49,6 @@ COPY ./gcloud-auth-wrapper.sh /usr/bin/gcloud
 
 RUN mv /usr/bin/gsutil /usr/bin/gsutil.original
 COPY ./gcloud-auth-wrapper.sh /usr/bin/gsutil
+
+RUN mv /usr/bin/linkerd /usr/bin/linkerd.original
+COPY ./gcloud-auth-wrapper.sh /usr/bin/linkerd
