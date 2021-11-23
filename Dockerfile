@@ -44,6 +44,9 @@ RUN curl -fSL -o "/usr/bin/jb" "https://github.com/jsonnet-bundler/jsonnet-bundl
 RUN mv /usr/bin/kubectl /usr/bin/kubectl.original
 COPY ./gcloud-auth-wrapper.sh /usr/bin/kubectl
 
+RUN mv /usr/bin/kubecfg /usr/bin/kubecfg.original
+COPY ./gcloud-auth-wrapper.sh /usr/bin/kubecfg
+
 RUN mv /usr/bin/gcloud /usr/bin/gcloud.original
 COPY ./gcloud-auth-wrapper.sh /usr/bin/gcloud
 
