@@ -1,7 +1,9 @@
 # Drone.io plugin for kubectl and kustomize on GKE
 
-Simple shell-based Drone plugin with kubectl and a configurable set of additional cloud-tools like kustomize or jsonnet.
+Simple shell-based [Drone](https://www.drone.io/) plugin with kubectl and a configurable set of additional cloud-tools like kustomize and jsonnet.
 The `gcloud` and `kubectl` commands are wrapped in a small script which generates K8s credentials on their first invocation.
+
+For the available image tags see [DockerHub](https://hub.docker.com/r/zeitonline/drone-kubectl-gke/tags).
 
 ## Customization
 
@@ -14,14 +16,14 @@ Use in Drone pipelines like this:
 ```yaml
 steps:
 - name: kubectl
-  image: eu.gcr.io/zeitonline-210413/zon-drone-kubectl:2.9.1
+  image: zeitonline/drone-kubectl-gke:2.11.0
   settings:
     gcp_credentials:
       from_secret: GCP_SERVICE_ACCOUNT
-    project: zeitonline-main
+    project: my-gcp-project
     zone: europe-west3-a
     cluster: staging
-    namespace: spiele
+    namespace: mynamespace
   commands:
     - kubectl get deployments
 ```
