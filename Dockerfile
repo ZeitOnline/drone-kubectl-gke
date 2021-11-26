@@ -8,6 +8,10 @@ ENV KUBECFG_VERSION 0.20.0
 ENV PLUTO_VERSION 4.2.0
 ENV LINKERD_VERSION 2.11.1
 ENV JQ_VERSION 1.6
+ENV ARGO_CLI_VERSION 2.1.7
+
+RUN curl -sSL -o /usr/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGO_CLI_VERSION}/argocd-linux-amd64 \
+  && chmod +x /usr/bin/argocd
 
 RUN curl -L https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -o /usr/bin/jq \
   && chmod +x /usr/bin/jq
