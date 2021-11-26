@@ -59,3 +59,6 @@ COPY ./gcloud-auth-wrapper.sh /usr/bin/gsutil
 
 RUN mv /usr/bin/linkerd /usr/bin/linkerd.original
 COPY ./gcloud-auth-wrapper.sh /usr/bin/linkerd
+
+RUN mv /usr/bin/argocd /usr/bin/argocd.original
+COPY ./gcloud-auth-wrapper.sh /usr/bin/argocd

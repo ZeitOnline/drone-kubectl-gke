@@ -36,4 +36,12 @@ if [ "$command" = "kubectl" -o "$command" = "kubecfg" -o "$command" = "linkerd" 
   fi
 fi
 
+# ArgoCD Token Environment variable
+if [ "$command" = "argocd" ] && [ -z "$PLUGIN_ARGOCD_TOKEN" ]; then
+  echo "Missing attribute ARGOCD_TOKEN..."
+  exit 1
+else
+  export ARGOCD_AUTH_TOKEN="${PLUGIN_ARGOCD_TOKEN}"
+fi
+
 exec $0.original "$@"
